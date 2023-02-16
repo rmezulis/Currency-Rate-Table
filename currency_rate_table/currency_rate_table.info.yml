@@ -1,0 +1,5 @@
+name: Currency Rates Table Module
+description: Creates a page containing a table of currency rates.
+package: Custom
+type: module
+core_version_requirement: ^10

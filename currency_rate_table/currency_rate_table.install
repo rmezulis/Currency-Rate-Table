@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function currency_rate_table_schema() {
+  $schema['currency_rates'] = [
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The id of the currency rate entry',
+      ],
+      'name' => [
+        'type' => 'char',
+        'length' => '3',
+        'not null' => TRUE,
+        'description' => 'The name of the currency',
+      ],
+      'buy_rate' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'precision' => 10,
+        'scale' => 5,
+        'not null' => TRUE,
+        'description' => 'Currency in non-cash Bank buys',
+      ],
+      'sell_rate' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'precision' => 10,
+        'scale' => 5,
+        'not null' => TRUE,
+        'description' => 'Currency in non-cash Bank sells',
+      ],
+      'ecb_rate' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'precision' => 10,
+        'scale' => 5,
+        'not null' => TRUE,
+        'description' => 'ECB rate',
+      ],
+      'ecb_change' => [
+        'type' => 'varchar',
+        'length' => '10'
+      ],
+      'created_at' => [
+        'mysql_type' => 'timestamp',
+        'not null' => true,
+      ],
+    ],
+    'primary key' => ['id']
+  ];
+  return $schema;
+}
+
+function currency_rate_table_enable() {
+  $connection = Drupal::service('database');
+  $connection->query('ALTER TABLE currency_rates
+    MODIFY created_at TIMESTAMP NOT NULL
+    DEFAULT CURRENT_TIMESTAMP'
+  );
+}

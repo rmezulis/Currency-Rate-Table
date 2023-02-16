@@ -1,0 +1,7 @@
+currency.content:
+  path: '/ricards'
+  defaults:
+    _controller: '\Drupal\currency_rate_table\Controller\CurrencyRateTableController::content'
+    _title: 'Currency Rate Table'
+  requirements:
+    _permission: 'access content'
